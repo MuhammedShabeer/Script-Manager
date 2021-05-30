@@ -1,0 +1,14 @@
+C:\Users\Shabeer\Desktop\Script manager\bin\Debug\Script manager.exe
+C:\Users\Shabeer\Desktop\Script manager\bin\Debug\Script manager.pdb
+C:\Users\Shabeer\Desktop\Script manager\bin\Debug\Script manager.xml
+C:\Users\Shabeer\Desktop\Script manager\obj\Debug\Script manager.vbprojAssemblyReference.cache
+C:\Users\Shabeer\Desktop\Script manager\obj\Debug\Script_manager.Resources.resources
+C:\Users\Shabeer\Desktop\Script manager\obj\Debug\Script manager.vbproj.GenerateResource.cache
+C:\Users\Shabeer\Desktop\Script manager\obj\Debug\Script manager.vbproj.CoreCompileInputs.cache
+C:\Users\Shabeer\Desktop\Script manager\obj\Debug\Script manager.exe
+C:\Users\Shabeer\Desktop\Script manager\obj\Debug\Script manager.xml
+C:\Users\Shabeer\Desktop\Script manager\obj\Debug\Script manager.pdb
+C:\Users\Shabeer\Desktop\Script manager\obj\Debug\Script_manager.frmScriptSearch.resources
+C:\Users\Shabeer\Desktop\Script manager\Output\Script manager.exe
+C:\Users\Shabeer\Desktop\Script manager\Output\Script manager.pdb
+C:\Users\Shabeer\Desktop\Script manager\Output\Script manager.xml
