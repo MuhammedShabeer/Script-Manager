@@ -5,6 +5,10 @@ Public Class frmScriptSearch
     Dim dtSerachedTextData As New DataTable
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            If File.Exists(AppDomain.CurrentDomain.BaseDirectory & "\BackgroundDefault.jpg") Then
+                btnBrowseImage.Tag = AppDomain.CurrentDomain.BaseDirectory & "\BackgroundDefault.jpg"
+            End If
+
             If File.Exists("Settings.xml") Then
                 ReadSettingsXml()
             Else
@@ -12,15 +16,16 @@ Public Class frmScriptSearch
             End If
             SettingsPanel.Location = New System.Drawing.Point(btnSettings.Location.X, btnSettings.Location.Y + 33)
             changeSettings()
+            btnSaveSettings_Click(btnSaveSettings, New EventArgs)
             dtPathData.Columns.AddRange(New DataColumn(1) {New DataColumn("Path"), New DataColumn("CreatedDate", GetType(Date))})
             dtSerachedTextData.Columns.AddRange(New DataColumn(2) {New DataColumn("Path"), New DataColumn("Line"), New DataColumn("CreatedDate", GetType(Date))})
-            If chkLoadDirectory.Checked Then Button1_Click(sender, e)
+            If chkLoadDirectory.Checked Then btnfindDirectory_Click(sender, e)
             DataGridView1.AutoGenerateColumns = False
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub btnfindDirectory_Click(sender As Object, e As EventArgs) Handles btnfindDirectory.Click
         Try
             directoryTree.Nodes.Clear()
             dtPathData.Rows.Clear()
@@ -88,7 +93,7 @@ Public Class frmScriptSearch
                         If wordstartIndex <> -1 Then
                             RichTextBox1.SelectionStart = wordstartIndex
                             RichTextBox1.SelectionLength = word.Length
-                            RichTextBox1.SelectionBackColor = Color.Yellow
+                            RichTextBox1.SelectionBackColor = btnRichTextBoxHighlightFontColour.BackColor
                         Else
                             Exit While
                         End If
@@ -107,12 +112,12 @@ Public Class frmScriptSearch
     Private CurrentNodeMatches As List(Of TreeNode) = New List(Of TreeNode)()
     Private LastNodeIndex As Integer = 0
     Private LastSearchFile As String
-    Private Sub FindNode(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub FindNode(sender As Object, e As EventArgs) Handles btnFindFile.Click
         Try
             If TabControl1.SelectedIndex = 0 Then
                 Dim searchText As String = txtFileName.Text
                 If String.IsNullOrEmpty(searchText) Then
-                    Button1_Click(sender, e)
+                    btnfindDirectory_Click(sender, e)
                     Exit Sub
                 End If
                 If LastSearchFile <> searchText Then
@@ -155,7 +160,8 @@ Public Class frmScriptSearch
             Dim node As TreeNode = Nothing
             While StartNode IsNot Nothing
                 If Not FindPath Then
-                    If StartNode.Text.ToLower().Contains(SearchText.ToLower()) Then
+                    If String.Compare(StartNode.Text, SearchText, True) Then
+                        ' StartNode.Text.ToLower().Contains(SearchText.ToLower()) 
                         CurrentNodeMatches.Add(StartNode)
                     End If
                 Else
@@ -184,7 +190,7 @@ Public Class frmScriptSearch
             If DataGridView1.CurrentCell.OwningColumn.Name = "ColOpen" Then ToolStripMenuItem2_Click(sender, New EventArgs)
             ToolStripStatusLabel1.Text = "File name :" & Path.GetFileNameWithoutExtension(DataGridView1.Rows(e.RowIndex).Cells("ColPath").Value)
             If Not IsNothing(CType(DataGridView1.CurrentRow.DataBoundItem, DataRowView).Item("Line")) Then
-                Button7_Click(sender, New EventArgs, CType(DataGridView1.CurrentRow.DataBoundItem, DataRowView).Item("Line"))
+                btnSearchInFile_Click(sender, New EventArgs, CType(DataGridView1.CurrentRow.DataBoundItem, DataRowView).Item("Line"))
             End If
         Catch ex As Exception
         End Try
@@ -222,11 +228,14 @@ Public Class frmScriptSearch
             Dim strFont() As String = txtFont.Text.Split(",")
             Try
                 parent.Font = New System.Drawing.Font(strFont(0), CInt(strFont(1)))
+                parent.ForeColor = btnAppFontColour.BackColor
             Catch ex As Exception
             End Try
             If File.Exists(btnBrowseImage.Tag) Then
                 If ((parent.GetType() Is GetType(Panel)) Or parent.GetType() Is GetType(GroupBox) Or parent.GetType() Is GetType(SplitContainer) _
-                   Or (parent.GetType() Is GetType(Button)) Or (parent.GetType() Is GetType(StatusStrip))) And Not parent.Name = "btnSettings" Then
+                   Or (parent.GetType() Is GetType(Button)) Or (parent.GetType() Is GetType(StatusStrip))) And Not parent.Name = "btnSettings" _
+                   And Not parent.Name = "btnAppFontColour" And Not parent.Name = "btnTextWindowFontColour" And Not parent.Name = "btnRichTextBoxFontColour" _
+                   And Not parent.Name = "btnRichTextBoxHighlightFontColour" And Not parent.Name = "btnTextWindowHighLightColour" Then
                     parent.BackgroundImage = New Bitmap(Image.FromFile(btnBrowseImage.Tag))
                 End If
             End If
@@ -239,12 +248,17 @@ Public Class frmScriptSearch
     Private Sub changeSettings()
         Try
             txtDirectory.Text = txtDefultDirectory.Text
+            txtRichBoxFont.Text = txtTextWindowFontSettings.Text
+            btnRichTextBoxFontColour.BackColor = btnTextWindowFontColour.BackColor
+            RichTextBox1.ForeColor = btnRichTextBoxFontColour.BackColor
+            btnRichTextBoxHighlightFontColour.BackColor = btnTextWindowHighLightColour.BackColor
             FindControlRecursive(Me)
+            txtRichBoxFont_TextChanged(Nothing, New EventArgs)
         Catch ex As Exception
         End Try
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+    Private Sub btnSaveSettings_Click(sender As Object, e As EventArgs) Handles btnSaveSettings.Click
         Try
             If File.Exists("Settings.xml") Then
                 UpdateSettingsXml()
@@ -257,7 +271,7 @@ Public Class frmScriptSearch
         End Try
     End Sub
 
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+    Private Sub btnSetttingClear_Click(sender As Object, e As EventArgs) Handles btnSetttingClear.Click
         Try
             txtDefultDirectory.Text = ""
             txtFont.Text = ""
@@ -275,13 +289,13 @@ Public Class frmScriptSearch
                 ToolStripStatusLabel1.Text = "File name :" & Path.GetFileNameWithoutExtension(DataGridView1.CurrentCell.Value)
             End If
             If Not IsNothing(CType(DataGridView1.CurrentRow.DataBoundItem, DataRowView).Item("Line")) Then
-                Button7_Click(sender, New EventArgs, CType(DataGridView1.CurrentRow.DataBoundItem, DataRowView).Item("Line"))
+                btnSearchInFile_Click(sender, New EventArgs, CType(DataGridView1.CurrentRow.DataBoundItem, DataRowView).Item("Line"))
             End If
         Catch ex As Exception
         End Try
     End Sub
 
-    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub btnRestoreSettings_Click(sender As Object, e As EventArgs) Handles btnRestoreSettings.Click
         Try
             txtDefultDirectory.Text = "D:\DESKTOP\Sql - Scripts\From Year 2021"
             txtExtention.Text = " *.sql"
@@ -294,11 +308,11 @@ Public Class frmScriptSearch
     Private SearchTextCurrentNodeMatches As List(Of TreeNode) = New List(Of TreeNode)()
     Private SearchTextLastNodeIndex As Integer = 0
     Private SearchTextLastSearchtext As String
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+    Private Sub btnSearchText_Click(sender As Object, e As EventArgs) Handles btnSearchText.Click
         Try
             Dim searchText As String = txtSearchText.Text
             If String.IsNullOrEmpty(searchText) Then
-                Button1_Click(sender, e)
+                btnfindDirectory_Click(sender, e)
                 Exit Sub
             End If
             If SearchTextLastSearchtext <> searchText Then
@@ -311,8 +325,7 @@ Public Class frmScriptSearch
                         While Not read.EndOfStream
                             Dim line As String = read.ReadLine()
                             Dim LineCompare As String = line
-                            LineCompare.ToUpper()
-                            If LineCompare.Contains(txtSearchText.Text.ToUpper) Then
+                            If LineCompare.ToUpper().Contains(txtSearchText.Text.ToUpper) Then
                                 dtSerachedTextData.Rows.Add(row("Path"), line, New FileInfo(row("Path")).CreationTime)
                                 SearchNodes(row("Path"), directoryTree.Nodes(0), True)
                             End If
@@ -326,7 +339,7 @@ Public Class frmScriptSearch
                     SearchTextLastNodeIndex += 1
                     Try
                         If RichTextBox1.Tag = directoryTree.SelectedNode.Tag And directoryTree.SelectedNode.Text = selectedNode.Text Then
-                            Button7_Click(sender, e)
+                            btnSearchInFile_Click(sender, e)
                             ToolStripStatusLabel1.Text = "Searching in " & directoryTree.SelectedNode.Text
                             Exit Sub
                         End If
@@ -350,7 +363,7 @@ Public Class frmScriptSearch
             DataGridView1.DataSource = dtSerachedTextData
             DataGridView1.Refresh()
             ToolStripStatusLabel1.Text = SearchTextCurrentNodeMatches.Count & " Text found"
-            Button7_Click(sender, e)
+            btnSearchInFile_Click(sender, e)
         Catch ex As Exception
         End Try
     End Sub
@@ -395,13 +408,16 @@ Public Class frmScriptSearch
             If txtSearchText.Text = "" Then
                 FindNode(sender, e)
             Else
+                txtRichTextBoxSearch.Text = ""
                 OpenFile()
             End If
+            RichTextBox1.Clear()
+            _startindex = 0
         Catch ex As Exception
         End Try
     End Sub
     Dim _startindex As Integer = 0
-    Private Sub Button7_Click(sender As Object, e As EventArgs, Optional ByVal SearchText As String = "")
+    Private Sub btnSearchInFile_Click(sender As Object, e As EventArgs, Optional ByVal SearchText As String = "")
         Try
             Dim word As String = IIf(SearchText = "", txtSearchText.Text, SearchText)
             If word <> "" Then
@@ -411,19 +427,18 @@ Public Class frmScriptSearch
                         RichTextBox1.SelectionStart = wordstartIndex
                         RichTextBox1.ScrollToCaret()
                         RichTextBox1.SelectionStart = RichTextBox1.Find(txtSearchText.Text, wordstartIndex, RichTextBoxFinds.None)
-                        RichTextBox1.SelectionBackColor = Color.Yellow
-
+                        RichTextBox1.SelectionBackColor = btnRichTextBoxHighlightFontColour.BackColor
                     End If
                 Else
                     If _startindex < RichTextBox1.TextLength Then
                         Dim wordstartIndex As Integer = RichTextBox1.Find(word, _startindex, RichTextBoxFinds.None)
                         If wordstartIndex <> -1 Then
                             RichTextBox1.SelectionStart = wordstartIndex
-                            RichTextBox1.SelectionBackColor = Color.Yellow
+                            RichTextBox1.SelectionBackColor = btnRichTextBoxHighlightFontColour.BackColor
                             RichTextBox1.ScrollToCaret()
                         Else
                             _startindex = 0
-                            '  Button7_Click(sender, e)
+                            '  btnSearchInFile_Click(sender, e)
                             Exit Sub
                         End If
                         _startindex += wordstartIndex + word.Length
@@ -466,6 +481,18 @@ Public Class frmScriptSearch
                     .WriteStartElement("BackGroundImage")
                     .WriteString(IIf(btnBrowseImage.Tag Is Nothing, "", btnBrowseImage.Tag))
                     .WriteEndElement()
+                    .WriteStartElement("FontColor")
+                    .WriteString(btnAppFontColour.BackColor.ToArgb)
+                    .WriteEndElement()
+                    .WriteStartElement("TextWindowFont")
+                    .WriteString(txtTextWindowFontSettings.Text.Trim)
+                    .WriteEndElement()
+                    .WriteStartElement("TextWindowFontcolor")
+                    .WriteString(btnTextWindowFontColour.BackColor.ToArgb)
+                    .WriteEndElement()
+                    .WriteStartElement("TextWindowFontHighLightcolor")
+                    .WriteString(btnTextWindowHighLightColour.BackColor.ToArgb)
+                    .WriteEndElement()
                     .WriteEndElement()
                     .WriteEndDocument()
                     .Flush()
@@ -484,11 +511,26 @@ Public Class frmScriptSearch
                 txtExtention.Text = .SelectSingleNode("Settings").ChildNodes.Item(1).InnerText.Trim()
                 txtFont.Text = .SelectSingleNode("Settings").ChildNodes.Item(2).InnerText.Trim()
                 chkLoadDirectory.CheckState = .SelectSingleNode("Settings").ChildNodes.Item(3).InnerText.Trim()
-                btnBrowseImage.Tag = .SelectSingleNode("Settings").ChildNodes.Item(4).InnerText.Trim()
+                If not File.Exists(btnBrowseImage.Tag) Then btnBrowseImage.Tag = .SelectSingleNode("Settings").ChildNodes.Item(4).InnerText.Trim()
+                btnAppFontColour.BackColor = Color.FromArgb(CInt(.SelectSingleNode("Settings").ChildNodes.Item(5).InnerText.Trim()))
+                txtTextWindowFontSettings.Text = .SelectSingleNode("Settings").ChildNodes.Item(6).InnerText.Trim()
+                btnTextWindowFontColour.BackColor = Color.FromArgb(CInt(.SelectSingleNode("Settings").ChildNodes.Item(7).InnerText.Trim()))
+                btnTextWindowHighLightColour.BackColor = Color.FromArgb(CInt(.SelectSingleNode("Settings").ChildNodes.Item(8).InnerText.Trim()))
                 If File.Exists(btnBrowseImage.Tag) Then
                     btnBrowseImage.Text = Path.GetFileNameWithoutExtension(btnBrowseImage.Tag)
                 Else
                     btnBrowseImage.Text = "&Browse"
+                End If
+                If txtExtention.Text = "" Then
+                    Dim extention As String = InputBox("Select default extention", "Select Default Extention", "*.txt")
+                    txtExtention.Text = extention
+                End If
+                If txtDefultDirectory.Text = "" Then
+                    Dim FolderBrowserDialog1 As New FolderBrowserDialog
+                    FolderBrowserDialog1.Description = "Select default directory"
+                    If (FolderBrowserDialog1.ShowDialog() = DialogResult.OK) Then
+                        txtDefultDirectory.Text = FolderBrowserDialog1.SelectedPath
+                    End If
                 End If
             End With
         Catch ex As Exception
@@ -499,18 +541,23 @@ Public Class frmScriptSearch
             Dim xmldoc As New XmlDocument()
             With xmldoc
                 .Load("Settings.xml")
-                .SelectSingleNode("Settings").ChildNodes.Item(0).InnerText = txtDefultDirectory.Text
-                .SelectSingleNode("Settings").ChildNodes.Item(1).InnerText = txtExtention.Text
-                .SelectSingleNode("Settings").ChildNodes.Item(2).InnerText = txtFont.Text
+                .SelectSingleNode("Settings").ChildNodes.Item(0).InnerText = txtDefultDirectory.Text.Trim
+                .SelectSingleNode("Settings").ChildNodes.Item(1).InnerText = txtExtention.Text.Trim
+                .SelectSingleNode("Settings").ChildNodes.Item(2).InnerText = txtFont.Text.Trim
                 .SelectSingleNode("Settings").ChildNodes.Item(3).InnerText = chkLoadDirectory.CheckState
                 .SelectSingleNode("Settings").ChildNodes.Item(4).InnerText = IIf(btnBrowseImage.Tag Is Nothing, "", btnBrowseImage.Tag)
+                .SelectSingleNode("Settings").ChildNodes.Item(5).InnerText = btnAppFontColour.BackColor.ToArgb
+                .SelectSingleNode("Settings").ChildNodes.Item(6).InnerText = txtTextWindowFontSettings.Text
+                .SelectSingleNode("Settings").ChildNodes.Item(7).InnerText = btnTextWindowFontColour.BackColor.ToArgb
+                .SelectSingleNode("Settings").ChildNodes.Item(8).InnerText = btnTextWindowHighLightColour.BackColor.ToArgb
+
                 .Save("Settings.xml")
             End With
         Catch ex As Exception
         End Try
     End Sub
 
-    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles btnBrowseImage.Click
+    Private Sub btnBrowseImage_Click(sender As Object, e As EventArgs) Handles btnBrowseImage.Click
         Try
             Dim ofd As OpenFileDialog = New OpenFileDialog
             ofd.Filter = "All files |*|Bitmap Image (.bmp)|*.bmp|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png"
@@ -523,10 +570,144 @@ Public Class frmScriptSearch
         End Try
     End Sub
 
-    Private Sub Button7_Click_1(sender As Object, e As EventArgs) Handles Button7.Click
+    Private Sub btnClearSettings_Click(sender As Object, e As EventArgs) Handles btnClearSettings.Click
         Try
             ReadSettingsXml()
             SettingsPanel.Visible = False
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub FontColour(sender As Object, e As EventArgs) Handles btnAppFontColour.Click, btnTextWindowFontColour.Click, btnRichTextBoxFontColour.Click, btnTextWindowHighLightColour.Click, btnRichTextBoxHighlightFontColour.Click
+        Try
+            Dim colorDlg As New ColorDialog()
+            If (colorDlg.ShowDialog() = Windows.Forms.DialogResult.OK) Then
+                sender.BackColor = colorDlg.Color
+                If sender.name = "btnRichTextBoxFontColour" Then
+                    RichTextBox1.ForeColor = colorDlg.Color
+                End If
+            End If
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub txtRichBoxFont_TextChanged(sender As Object, e As EventArgs) Handles txtRichBoxFont.TextChanged
+        Try
+            Dim strFont() As String = txtRichBoxFont.Text.Split(",")
+            RichTextBox1.Font = New System.Drawing.Font(strFont(0), CInt(strFont(1)))
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub SettingsPanel_Leave(sender As Object, e As EventArgs) Handles SettingsPanel.Leave
+        Try
+            SettingsPanel.Visible = False
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub SettingsPanel_VisibleChanged(sender As Object, e As EventArgs) Handles SettingsPanel.VisibleChanged
+        Try
+            If SettingsPanel.Visible = True Then SettingsPanel.Select()
+        Catch ex As Exception
+        End Try
+    End Sub
+    Dim WordSearchIntex As List(Of Integer)
+    Private Sub txtRichTextBoxSearch_TextChanged(sender As Object, e As EventArgs) Handles txtRichTextBoxSearch.TextChanged
+        Try
+            txtSearchText.Text = ""
+            Dim strBackText As String = RichTextBox1.Text
+            RichTextBox1.Clear()
+            RichTextBox1.Text = strBackText
+            _startindex = 0
+            WordSearchIntex = New List(Of Integer)
+            Dim word As String = txtRichTextBoxSearch.Text
+            If txtRichTextBoxSearch.Text = "" Then Exit Sub
+            While _startindex < strBackText.Length
+                If _startindex < strBackText.Length Then
+                    Dim wordstartIndex As Integer = strBackText.IndexOf(word, _startindex, comparisonType:=StringComparison.InvariantCultureIgnoreCase)
+                    If wordstartIndex <> -1 Then
+                        WordSearchIntex.Add(wordstartIndex)
+                        RichTextBox1.Select(wordstartIndex, word.Length)
+                        RichTextBox1.SelectionBackColor = Color.Aqua
+                        RichTextBox1.ScrollToCaret()
+                    End If
+                    _startindex += If(wordstartIndex = -1, 0, wordstartIndex) + word.Length
+                End If
+            End While
+            _startindex = 0
+            NextPrev_Click(sender, e)
+
+            'Dim word As String = txtRichTextBoxSearch.Text
+            'While _startindex < RichTextBox1.TextLength
+            '    ' If _startindex < RichTextBox1.TextLength Then
+            '    Dim wordstartIndex As Integer = RichTextBox1.Text.IndexOf(word, _startindex, comparisonType:=StringComparison.CurrentCultureIgnoreCase)
+            '    If wordstartIndex <> -1 Then
+            '        WordSearchIntex.Add(wordstartIndex)
+            '        RichTextBox1.SelectionStart = wordstartIndex
+            '        RichTextBox1.SelectionBackColor = Color.Aqua
+            '        RichTextBox1.ScrollToCaret()
+            '    End If
+            '    _startindex += wordstartIndex + word.Length
+            '    '   End If
+            'End While
+
+
+
+
+            '        Public Static void Find(RichTextBox rtb, String word, Color color)
+            '{
+            '    If (word == "") Then
+            '                    {
+            '        Return;
+            '    }
+            '    Int s_start = rtb.SelectionStart, startIndex = 0, Index;
+            '    While ((Index = rtb.Text.IndexOf(word, startIndex))!= -1)
+            '    {
+            '        rtb.Select(Index, word.Length);
+            '        rtb.SelectionColor = Color;
+            '        startIndex = Index + word.Length;
+            '    }
+            '    rtb.SelectionStart = 0;
+            '    rtb.SelectionLength = rtb.TextLength;
+            '    rtb.SelectionColor = Color.Black;
+            '}
+
+
+        Catch ex As Exception
+        End Try
+    End Sub
+    Private Sub NextPrev_Click(sender As Object, e As EventArgs) Handles btnFindRichPrev.Click, btnFindRichNext.Click
+        Try
+            Dim word As String = txtRichTextBoxSearch.Text
+            If sender.name = "btnFindRichPrev" Then
+                If _startindex < 0 Then
+                    _startindex = 0
+                Else
+                    _startindex = _startindex - 1
+                End If
+            ElseIf sender.name = "btnFindRichNext" Then
+                _startindex = _startindex + 1
+            End If
+
+            RichTextBox1.SelectionStart = WordSearchIntex(_startindex)
+            RichTextBox1.SelectionBackColor = btnRichTextBoxHighlightFontColour.BackColor
+            RichTextBox1.ScrollToCaret()
+
+            'If _startindex < RichTextBox1.TextLength Then
+            '    Dim wordstartIndex As Integer = RichTextBox1.Find(word, _startindex, RichTextBoxFinds.None)
+            '    If wordstartIndex <> -1 Then
+            '        RichTextBox1.SelectionStart = wordstartIndex
+            '        RichTextBox1.SelectionBackColor = btnRichTextBoxHighlightFontColour.BackColor
+            '        RichTextBox1.ScrollToCaret()
+            '    Else
+            '        _startindex = 0
+            '        Exit Sub
+            '    End If
+            '    _startindex += wordstartIndex + word.Length
+            'End If
+            If _startindex > RichTextBox1.TextLength Then _startindex = 0
+
         Catch ex As Exception
         End Try
     End Sub

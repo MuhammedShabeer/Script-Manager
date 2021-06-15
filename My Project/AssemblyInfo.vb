@@ -8,9 +8,9 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Script manager")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyTitle("Script manager (Textfile Manager)")>
+<Assembly: AssemblyDescription("Search Your Documents Easily")>
+<Assembly: AssemblyCompany("SS Tech")>
 <Assembly: AssemblyProduct("Script manager")>
 <Assembly: AssemblyCopyright("Copyright ©  2021")>
 <Assembly: AssemblyTrademark("")>

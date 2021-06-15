@@ -23,9 +23,9 @@ Partial Class frmScriptSearch
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmScriptSearch))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
@@ -47,27 +47,40 @@ Partial Class frmScriptSearch
         Me.ColOpen = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.btnSettings = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnSearchText = New System.Windows.Forms.Button()
+        Me.btnFindFile = New System.Windows.Forms.Button()
+        Me.btnfindDirectory = New System.Windows.Forms.Button()
         Me.txtSearchText = New System.Windows.Forms.TextBox()
         Me.txtFileName = New System.Windows.Forms.TextBox()
         Me.txtDirectory = New System.Windows.Forms.TextBox()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.btnRichTextBoxHighlightFontColour = New System.Windows.Forms.Button()
+        Me.btnRichTextBoxFontColour = New System.Windows.Forms.Button()
+        Me.btnFindRichNext = New System.Windows.Forms.Button()
+        Me.btnFindRichPrev = New System.Windows.Forms.Button()
+        Me.txtRichBoxFont = New System.Windows.Forms.TextBox()
+        Me.txtRichTextBoxSearch = New System.Windows.Forms.TextBox()
         Me.SettingsPanel = New System.Windows.Forms.GroupBox()
+        Me.btnTextWindowHighLightColour = New System.Windows.Forms.Button()
+        Me.btnTextWindowFontColour = New System.Windows.Forms.Button()
+        Me.btnAppFontColour = New System.Windows.Forms.Button()
         Me.btnBrowseImage = New System.Windows.Forms.Button()
         Me.chkLoadDirectory = New System.Windows.Forms.CheckBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Button7 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
+        Me.btnClearSettings = New System.Windows.Forms.Button()
+        Me.btnSetttingClear = New System.Windows.Forms.Button()
         Me.txtDefultDirectory = New System.Windows.Forms.TextBox()
+        Me.txtTextWindowFontSettings = New System.Windows.Forms.TextBox()
         Me.txtExtention = New System.Windows.Forms.TextBox()
         Me.txtFont = New System.Windows.Forms.TextBox()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.btnRestoreSettings = New System.Windows.Forms.Button()
+        Me.btnSaveSettings = New System.Windows.Forms.Button()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.StatusStrip1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -79,6 +92,7 @@ Partial Class frmScriptSearch
         Me.TabPage2.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SettingsPanel.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -135,6 +149,7 @@ Partial Class frmScriptSearch
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.RichTextBox1)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel2)
         Me.SplitContainer1.Size = New System.Drawing.Size(805, 414)
         Me.SplitContainer1.SplitterDistance = 268
         Me.SplitContainer1.TabIndex = 10
@@ -221,8 +236,8 @@ Partial Class frmScriptSearch
         '
         Me.ColPath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.ColPath.DataPropertyName = "Path"
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ColPath.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ColPath.DefaultCellStyle = DataGridViewCellStyle10
         Me.ColPath.HeaderText = "Path"
         Me.ColPath.Name = "ColPath"
         Me.ColPath.ReadOnly = True
@@ -231,9 +246,9 @@ Partial Class frmScriptSearch
         '
         Me.ColCreatedDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.ColCreatedDate.DataPropertyName = "CreatedDate"
-        DataGridViewCellStyle5.Format = "d"
-        DataGridViewCellStyle5.NullValue = Nothing
-        Me.ColCreatedDate.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle11.Format = "d"
+        DataGridViewCellStyle11.NullValue = Nothing
+        Me.ColCreatedDate.DefaultCellStyle = DataGridViewCellStyle11
         Me.ColCreatedDate.HeaderText = "Created Date"
         Me.ColCreatedDate.Name = "ColCreatedDate"
         Me.ColCreatedDate.ReadOnly = True
@@ -242,8 +257,8 @@ Partial Class frmScriptSearch
         'ColOpen
         '
         Me.ColOpen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ColOpen.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ColOpen.DefaultCellStyle = DataGridViewCellStyle12
         Me.ColOpen.HeaderText = "Open"
         Me.ColOpen.Name = "ColOpen"
         Me.ColOpen.ReadOnly = True
@@ -252,9 +267,9 @@ Partial Class frmScriptSearch
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.btnSettings)
-        Me.Panel1.Controls.Add(Me.Button4)
-        Me.Panel1.Controls.Add(Me.Button3)
-        Me.Panel1.Controls.Add(Me.Button1)
+        Me.Panel1.Controls.Add(Me.btnSearchText)
+        Me.Panel1.Controls.Add(Me.btnFindFile)
+        Me.Panel1.Controls.Add(Me.btnfindDirectory)
         Me.Panel1.Controls.Add(Me.txtSearchText)
         Me.Panel1.Controls.Add(Me.txtFileName)
         Me.Panel1.Controls.Add(Me.txtDirectory)
@@ -275,40 +290,40 @@ Partial Class frmScriptSearch
         Me.btnSettings.TabIndex = 14
         Me.btnSettings.UseVisualStyleBackColor = False
         '
-        'Button4
+        'btnSearchText
         '
-        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.Location = New System.Drawing.Point(144, 72)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(118, 24)
-        Me.Button4.TabIndex = 13
-        Me.Button4.Text = "&Search Text"
-        Me.Button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.btnSearchText.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSearchText.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSearchText.Location = New System.Drawing.Point(144, 75)
+        Me.btnSearchText.Name = "btnSearchText"
+        Me.btnSearchText.Size = New System.Drawing.Size(118, 24)
+        Me.btnSearchText.TabIndex = 13
+        Me.btnSearchText.Text = "&Search Text"
+        Me.btnSearchText.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnSearchText.UseVisualStyleBackColor = True
         '
-        'Button3
+        'btnFindFile
         '
-        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button3.Location = New System.Drawing.Point(144, 40)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(118, 24)
-        Me.Button3.TabIndex = 13
-        Me.Button3.Text = "&Find file"
-        Me.Button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.btnFindFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnFindFile.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnFindFile.Location = New System.Drawing.Point(144, 43)
+        Me.btnFindFile.Name = "btnFindFile"
+        Me.btnFindFile.Size = New System.Drawing.Size(118, 24)
+        Me.btnFindFile.TabIndex = 13
+        Me.btnFindFile.Text = "&Find file"
+        Me.btnFindFile.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnFindFile.UseVisualStyleBackColor = True
         '
-        'Button1
+        'btnfindDirectory
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(184, 6)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(78, 24)
-        Me.Button1.TabIndex = 13
-        Me.Button1.Text = "&Find"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnfindDirectory.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnfindDirectory.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnfindDirectory.Location = New System.Drawing.Point(184, 8)
+        Me.btnfindDirectory.Name = "btnfindDirectory"
+        Me.btnfindDirectory.Size = New System.Drawing.Size(78, 24)
+        Me.btnfindDirectory.TabIndex = 13
+        Me.btnfindDirectory.Text = "&Find"
+        Me.btnfindDirectory.UseVisualStyleBackColor = True
         '
         'txtSearchText
         '
@@ -317,7 +332,7 @@ Partial Class frmScriptSearch
         Me.txtSearchText.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.txtSearchText.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList
         Me.txtSearchText.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSearchText.Location = New System.Drawing.Point(10, 72)
+        Me.txtSearchText.Location = New System.Drawing.Point(10, 76)
         Me.txtSearchText.Name = "txtSearchText"
         Me.txtSearchText.Size = New System.Drawing.Size(128, 23)
         Me.txtSearchText.TabIndex = 12
@@ -329,7 +344,7 @@ Partial Class frmScriptSearch
         Me.txtFileName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.txtFileName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList
         Me.txtFileName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFileName.Location = New System.Drawing.Point(10, 40)
+        Me.txtFileName.Location = New System.Drawing.Point(10, 44)
         Me.txtFileName.Name = "txtFileName"
         Me.txtFileName.Size = New System.Drawing.Size(128, 23)
         Me.txtFileName.TabIndex = 12
@@ -341,7 +356,7 @@ Partial Class frmScriptSearch
         Me.txtDirectory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.txtDirectory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories
         Me.txtDirectory.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtDirectory.Location = New System.Drawing.Point(45, 6)
+        Me.txtDirectory.Location = New System.Drawing.Point(45, 9)
         Me.txtDirectory.Name = "txtDirectory"
         Me.txtDirectory.Size = New System.Drawing.Size(133, 23)
         Me.txtDirectory.TabIndex = 10
@@ -349,39 +364,155 @@ Partial Class frmScriptSearch
         'RichTextBox1
         '
         Me.RichTextBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RichTextBox1.Location = New System.Drawing.Point(0, 0)
+        Me.RichTextBox1.Location = New System.Drawing.Point(0, 45)
         Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(533, 414)
+        Me.RichTextBox1.Size = New System.Drawing.Size(533, 369)
         Me.RichTextBox1.TabIndex = 0
         Me.RichTextBox1.Text = ""
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.btnRichTextBoxHighlightFontColour)
+        Me.Panel2.Controls.Add(Me.btnRichTextBoxFontColour)
+        Me.Panel2.Controls.Add(Me.btnFindRichNext)
+        Me.Panel2.Controls.Add(Me.btnFindRichPrev)
+        Me.Panel2.Controls.Add(Me.txtRichBoxFont)
+        Me.Panel2.Controls.Add(Me.txtRichTextBoxSearch)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Location = New System.Drawing.Point(0, 0)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(533, 45)
+        Me.Panel2.TabIndex = 2
+        '
+        'btnRichTextBoxHighlightFontColour
+        '
+        Me.btnRichTextBoxHighlightFontColour.BackColor = System.Drawing.Color.Yellow
+        Me.btnRichTextBoxHighlightFontColour.Location = New System.Drawing.Point(166, 10)
+        Me.btnRichTextBoxHighlightFontColour.Name = "btnRichTextBoxHighlightFontColour"
+        Me.btnRichTextBoxHighlightFontColour.Size = New System.Drawing.Size(16, 25)
+        Me.btnRichTextBoxHighlightFontColour.TabIndex = 17
+        Me.ToolTip1.SetToolTip(Me.btnRichTextBoxHighlightFontColour, "Text window highlight color")
+        Me.btnRichTextBoxHighlightFontColour.UseVisualStyleBackColor = False
+        '
+        'btnRichTextBoxFontColour
+        '
+        Me.btnRichTextBoxFontColour.BackColor = System.Drawing.Color.Black
+        Me.btnRichTextBoxFontColour.Location = New System.Drawing.Point(150, 10)
+        Me.btnRichTextBoxFontColour.Name = "btnRichTextBoxFontColour"
+        Me.btnRichTextBoxFontColour.Size = New System.Drawing.Size(16, 25)
+        Me.btnRichTextBoxFontColour.TabIndex = 16
+        Me.ToolTip1.SetToolTip(Me.btnRichTextBoxFontColour, "Text window font color")
+        Me.btnRichTextBoxFontColour.UseVisualStyleBackColor = False
+        '
+        'btnFindRichNext
+        '
+        Me.btnFindRichNext.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnFindRichNext.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnFindRichNext.Location = New System.Drawing.Point(477, 11)
+        Me.btnFindRichNext.Name = "btnFindRichNext"
+        Me.btnFindRichNext.Size = New System.Drawing.Size(45, 24)
+        Me.btnFindRichNext.TabIndex = 13
+        Me.btnFindRichNext.Text = ">"
+        Me.btnFindRichNext.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnFindRichNext.UseVisualStyleBackColor = True
+        '
+        'btnFindRichPrev
+        '
+        Me.btnFindRichPrev.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnFindRichPrev.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnFindRichPrev.Location = New System.Drawing.Point(426, 11)
+        Me.btnFindRichPrev.Name = "btnFindRichPrev"
+        Me.btnFindRichPrev.Size = New System.Drawing.Size(45, 24)
+        Me.btnFindRichPrev.TabIndex = 13
+        Me.btnFindRichPrev.Text = "<"
+        Me.btnFindRichPrev.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnFindRichPrev.UseVisualStyleBackColor = True
+        '
+        'txtRichBoxFont
+        '
+        Me.txtRichBoxFont.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.txtRichBoxFont.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList
+        Me.txtRichBoxFont.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRichBoxFont.Location = New System.Drawing.Point(8, 11)
+        Me.txtRichBoxFont.Name = "txtRichBoxFont"
+        Me.txtRichBoxFont.Size = New System.Drawing.Size(142, 23)
+        Me.txtRichBoxFont.TabIndex = 12
+        Me.txtRichBoxFont.Text = "Microsoft Sans Serif, 10"
+        '
+        'txtRichTextBoxSearch
+        '
+        Me.txtRichTextBoxSearch.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtRichTextBoxSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.txtRichTextBoxSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList
+        Me.txtRichTextBoxSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRichTextBoxSearch.Location = New System.Drawing.Point(186, 11)
+        Me.txtRichTextBoxSearch.Name = "txtRichTextBoxSearch"
+        Me.txtRichTextBoxSearch.Size = New System.Drawing.Size(235, 23)
+        Me.txtRichTextBoxSearch.TabIndex = 12
         '
         'SettingsPanel
         '
         Me.SettingsPanel.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.SettingsPanel.Controls.Add(Me.btnTextWindowHighLightColour)
+        Me.SettingsPanel.Controls.Add(Me.btnTextWindowFontColour)
+        Me.SettingsPanel.Controls.Add(Me.btnAppFontColour)
         Me.SettingsPanel.Controls.Add(Me.btnBrowseImage)
         Me.SettingsPanel.Controls.Add(Me.chkLoadDirectory)
         Me.SettingsPanel.Controls.Add(Me.Label4)
         Me.SettingsPanel.Controls.Add(Me.Label3)
         Me.SettingsPanel.Controls.Add(Me.Label2)
+        Me.SettingsPanel.Controls.Add(Me.Label5)
         Me.SettingsPanel.Controls.Add(Me.Label1)
-        Me.SettingsPanel.Controls.Add(Me.Button7)
-        Me.SettingsPanel.Controls.Add(Me.Button6)
+        Me.SettingsPanel.Controls.Add(Me.btnClearSettings)
+        Me.SettingsPanel.Controls.Add(Me.btnSetttingClear)
         Me.SettingsPanel.Controls.Add(Me.txtDefultDirectory)
+        Me.SettingsPanel.Controls.Add(Me.txtTextWindowFontSettings)
         Me.SettingsPanel.Controls.Add(Me.txtExtention)
         Me.SettingsPanel.Controls.Add(Me.txtFont)
-        Me.SettingsPanel.Controls.Add(Me.Button2)
-        Me.SettingsPanel.Controls.Add(Me.Button5)
-        Me.SettingsPanel.Location = New System.Drawing.Point(286, 57)
+        Me.SettingsPanel.Controls.Add(Me.btnRestoreSettings)
+        Me.SettingsPanel.Controls.Add(Me.btnSaveSettings)
+        Me.SettingsPanel.Location = New System.Drawing.Point(326, 144)
         Me.SettingsPanel.Name = "SettingsPanel"
-        Me.SettingsPanel.Size = New System.Drawing.Size(338, 207)
+        Me.SettingsPanel.Size = New System.Drawing.Size(339, 240)
         Me.SettingsPanel.TabIndex = 1
         Me.SettingsPanel.TabStop = False
         Me.SettingsPanel.Text = "Settings"
         Me.SettingsPanel.Visible = False
         '
+        'btnTextWindowHighLightColour
+        '
+        Me.btnTextWindowHighLightColour.BackColor = System.Drawing.Color.Yellow
+        Me.btnTextWindowHighLightColour.Location = New System.Drawing.Point(319, 49)
+        Me.btnTextWindowHighLightColour.Name = "btnTextWindowHighLightColour"
+        Me.btnTextWindowHighLightColour.Size = New System.Drawing.Size(16, 25)
+        Me.btnTextWindowHighLightColour.TabIndex = 16
+        Me.ToolTip1.SetToolTip(Me.btnTextWindowHighLightColour, "Text window highlight color")
+        Me.btnTextWindowHighLightColour.UseVisualStyleBackColor = False
+        '
+        'btnTextWindowFontColour
+        '
+        Me.btnTextWindowFontColour.BackColor = System.Drawing.Color.Black
+        Me.btnTextWindowFontColour.Location = New System.Drawing.Point(303, 49)
+        Me.btnTextWindowFontColour.Name = "btnTextWindowFontColour"
+        Me.btnTextWindowFontColour.Size = New System.Drawing.Size(16, 25)
+        Me.btnTextWindowFontColour.TabIndex = 16
+        Me.ToolTip1.SetToolTip(Me.btnTextWindowFontColour, "Text window font color")
+        Me.btnTextWindowFontColour.UseVisualStyleBackColor = False
+        '
+        'btnAppFontColour
+        '
+        Me.btnAppFontColour.BackColor = System.Drawing.Color.Black
+        Me.btnAppFontColour.Location = New System.Drawing.Point(319, 19)
+        Me.btnAppFontColour.Name = "btnAppFontColour"
+        Me.btnAppFontColour.Size = New System.Drawing.Size(16, 25)
+        Me.btnAppFontColour.TabIndex = 16
+        Me.ToolTip1.SetToolTip(Me.btnAppFontColour, "App font color")
+        Me.btnAppFontColour.UseVisualStyleBackColor = False
+        '
         'btnBrowseImage
         '
-        Me.btnBrowseImage.Location = New System.Drawing.Point(111, 109)
+        Me.btnBrowseImage.Location = New System.Drawing.Point(111, 140)
         Me.btnBrowseImage.Name = "btnBrowseImage"
         Me.btnBrowseImage.Size = New System.Drawing.Size(222, 23)
         Me.btnBrowseImage.TabIndex = 15
@@ -394,7 +525,7 @@ Partial Class frmScriptSearch
         Me.chkLoadDirectory.BackColor = System.Drawing.Color.Transparent
         Me.chkLoadDirectory.Checked = True
         Me.chkLoadDirectory.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkLoadDirectory.Location = New System.Drawing.Point(12, 144)
+        Me.chkLoadDirectory.Location = New System.Drawing.Point(12, 175)
         Me.chkLoadDirectory.Name = "chkLoadDirectory"
         Me.chkLoadDirectory.Size = New System.Drawing.Size(139, 17)
         Me.chkLoadDirectory.TabIndex = 14
@@ -405,7 +536,7 @@ Partial Class frmScriptSearch
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Location = New System.Drawing.Point(12, 114)
+        Me.Label4.Location = New System.Drawing.Point(12, 145)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(96, 13)
         Me.Label4.TabIndex = 0
@@ -415,7 +546,7 @@ Partial Class frmScriptSearch
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Location = New System.Drawing.Point(12, 83)
+        Me.Label3.Location = New System.Drawing.Point(12, 114)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(84, 13)
         Me.Label3.TabIndex = 0
@@ -425,11 +556,21 @@ Partial Class frmScriptSearch
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(12, 54)
+        Me.Label2.Location = New System.Drawing.Point(12, 85)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(89, 13)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Search extension"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.Location = New System.Drawing.Point(12, 55)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(88, 13)
+        Me.Label5.TabIndex = 0
+        Me.Label5.Text = "Text window font"
         '
         'Label1
         '
@@ -441,27 +582,27 @@ Partial Class frmScriptSearch
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Font"
         '
-        'Button7
+        'btnClearSettings
         '
-        Me.Button7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button7.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button7.Location = New System.Drawing.Point(270, 167)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(61, 24)
-        Me.Button7.TabIndex = 13
-        Me.Button7.Text = "&Cancel"
-        Me.Button7.UseVisualStyleBackColor = True
+        Me.btnClearSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnClearSettings.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClearSettings.Location = New System.Drawing.Point(271, 198)
+        Me.btnClearSettings.Name = "btnClearSettings"
+        Me.btnClearSettings.Size = New System.Drawing.Size(61, 24)
+        Me.btnClearSettings.TabIndex = 13
+        Me.btnClearSettings.Text = "&Cancel"
+        Me.btnClearSettings.UseVisualStyleBackColor = True
         '
-        'Button6
+        'btnSetttingClear
         '
-        Me.Button6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button6.Location = New System.Drawing.Point(203, 167)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(61, 24)
-        Me.Button6.TabIndex = 13
-        Me.Button6.Text = "&Clear"
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.btnSetttingClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSetttingClear.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSetttingClear.Location = New System.Drawing.Point(204, 198)
+        Me.btnSetttingClear.Name = "btnSetttingClear"
+        Me.btnSetttingClear.Size = New System.Drawing.Size(61, 24)
+        Me.btnSetttingClear.TabIndex = 13
+        Me.btnSetttingClear.Text = "&Clear"
+        Me.btnSetttingClear.UseVisualStyleBackColor = True
         '
         'txtDefultDirectory
         '
@@ -470,10 +611,23 @@ Partial Class frmScriptSearch
         Me.txtDefultDirectory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.txtDefultDirectory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories
         Me.txtDefultDirectory.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtDefultDirectory.Location = New System.Drawing.Point(111, 78)
+        Me.txtDefultDirectory.Location = New System.Drawing.Point(111, 109)
         Me.txtDefultDirectory.Name = "txtDefultDirectory"
-        Me.txtDefultDirectory.Size = New System.Drawing.Size(222, 23)
+        Me.txtDefultDirectory.Size = New System.Drawing.Size(223, 23)
         Me.txtDefultDirectory.TabIndex = 12
+        '
+        'txtTextWindowFontSettings
+        '
+        Me.txtTextWindowFontSettings.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtTextWindowFontSettings.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.txtTextWindowFontSettings.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList
+        Me.txtTextWindowFontSettings.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTextWindowFontSettings.Location = New System.Drawing.Point(111, 50)
+        Me.txtTextWindowFontSettings.Name = "txtTextWindowFontSettings"
+        Me.txtTextWindowFontSettings.Size = New System.Drawing.Size(190, 23)
+        Me.txtTextWindowFontSettings.TabIndex = 12
+        Me.txtTextWindowFontSettings.Text = "Microsoft Sans Serif, 10"
         '
         'txtExtention
         '
@@ -482,9 +636,9 @@ Partial Class frmScriptSearch
         Me.txtExtention.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.txtExtention.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList
         Me.txtExtention.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtExtention.Location = New System.Drawing.Point(111, 49)
+        Me.txtExtention.Location = New System.Drawing.Point(111, 80)
         Me.txtExtention.Name = "txtExtention"
-        Me.txtExtention.Size = New System.Drawing.Size(222, 23)
+        Me.txtExtention.Size = New System.Drawing.Size(223, 23)
         Me.txtExtention.TabIndex = 12
         Me.txtExtention.Text = " *.sql"
         '
@@ -497,31 +651,31 @@ Partial Class frmScriptSearch
         Me.txtFont.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFont.Location = New System.Drawing.Point(111, 20)
         Me.txtFont.Name = "txtFont"
-        Me.txtFont.Size = New System.Drawing.Size(222, 23)
+        Me.txtFont.Size = New System.Drawing.Size(208, 23)
         Me.txtFont.TabIndex = 12
         Me.txtFont.Text = "Microsoft Sans Serif, 10"
         '
-        'Button2
+        'btnRestoreSettings
         '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(6, 167)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(117, 24)
-        Me.Button2.TabIndex = 13
-        Me.Button2.Text = "&Restore default"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnRestoreSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnRestoreSettings.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnRestoreSettings.Location = New System.Drawing.Point(7, 198)
+        Me.btnRestoreSettings.Name = "btnRestoreSettings"
+        Me.btnRestoreSettings.Size = New System.Drawing.Size(117, 24)
+        Me.btnRestoreSettings.TabIndex = 13
+        Me.btnRestoreSettings.Text = "&Restore default"
+        Me.btnRestoreSettings.UseVisualStyleBackColor = True
         '
-        'Button5
+        'btnSaveSettings
         '
-        Me.Button5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.Location = New System.Drawing.Point(136, 167)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(61, 24)
-        Me.Button5.TabIndex = 13
-        Me.Button5.Text = "&Save"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.btnSaveSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSaveSettings.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSaveSettings.Location = New System.Drawing.Point(137, 198)
+        Me.btnSaveSettings.Name = "btnSaveSettings"
+        Me.btnSaveSettings.Size = New System.Drawing.Size(61, 24)
+        Me.btnSaveSettings.TabIndex = 13
+        Me.btnSaveSettings.Text = "&Save"
+        Me.btnSaveSettings.UseVisualStyleBackColor = True
         '
         'frmScriptSearch
         '
@@ -548,6 +702,8 @@ Partial Class frmScriptSearch
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.SettingsPanel.ResumeLayout(False)
         Me.SettingsPanel.PerformLayout()
         Me.ResumeLayout(False)
@@ -567,12 +723,12 @@ Partial Class frmScriptSearch
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents txtDirectory As System.Windows.Forms.TextBox
     Friend WithEvents txtFileName As System.Windows.Forms.TextBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents btnfindDirectory As System.Windows.Forms.Button
     Friend WithEvents directoryTree As System.Windows.Forms.TreeView
     Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
-    Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents btnFindFile As System.Windows.Forms.Button
+    Friend WithEvents btnSearchText As System.Windows.Forms.Button
     Friend WithEvents txtSearchText As System.Windows.Forms.TextBox
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
@@ -582,19 +738,32 @@ Partial Class frmScriptSearch
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Button6 As System.Windows.Forms.Button
+    Friend WithEvents btnSetttingClear As System.Windows.Forms.Button
     Friend WithEvents txtDefultDirectory As System.Windows.Forms.TextBox
     Friend WithEvents txtExtention As System.Windows.Forms.TextBox
     Friend WithEvents txtFont As System.Windows.Forms.TextBox
-    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents btnSaveSettings As System.Windows.Forms.Button
     Friend WithEvents chkLoadDirectory As System.Windows.Forms.CheckBox
     Friend WithEvents ColPath As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ColCreatedDate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ColOpen As System.Windows.Forms.DataGridViewButtonColumn
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents btnRestoreSettings As System.Windows.Forms.Button
     Friend WithEvents btnBrowseImage As Button
     Friend WithEvents Label4 As Label
-    Friend WithEvents Button7 As Button
+    Friend WithEvents btnClearSettings As Button
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents btnFindRichPrev As Button
+    Friend WithEvents txtRichTextBoxSearch As TextBox
+    Friend WithEvents btnFindRichNext As Button
+    Friend WithEvents txtRichBoxFont As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents txtTextWindowFontSettings As TextBox
+    Friend WithEvents btnTextWindowFontColour As Button
+    Friend WithEvents btnAppFontColour As Button
+    Friend WithEvents btnRichTextBoxFontColour As Button
+    Friend WithEvents btnRichTextBoxHighlightFontColour As Button
+    Friend WithEvents btnTextWindowHighLightColour As Button
+    Friend WithEvents ToolTip1 As ToolTip
 End Class
 
 

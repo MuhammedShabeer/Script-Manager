@@ -12,3 +12,9 @@ C:\Users\Shabeer\Desktop\Script manager\obj\Debug\Script_manager.frmScriptSearch
 C:\Users\Shabeer\Desktop\Script manager\Output\Script manager.exe
 C:\Users\Shabeer\Desktop\Script manager\Output\Script manager.pdb
 C:\Users\Shabeer\Desktop\Script manager\Output\Script manager.xml
+C:\Users\Shabeer\Desktop\Script manager\Output\BackgroundDefault.jpg
+C:\Users\Shabeer\Desktop\Script manager\Output\Script manager.exe.config
+C:\Users\Shabeer\Desktop\Script manager\Output\Script manager.exe.manifest
+C:\Users\Shabeer\Desktop\Script manager\Output\Script manager.application
+C:\Users\Shabeer\Desktop\Script manager\obj\Debug\Script manager.exe.manifest
+C:\Users\Shabeer\Desktop\Script manager\obj\Debug\Script manager.application
