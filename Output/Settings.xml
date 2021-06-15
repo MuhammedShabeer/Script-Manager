@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Settings>
-  <DefultDirectory>C:\Users\Shabeer\Desktop</DefultDirectory>
-  <Extention>*.txt</Extention>
+  <DefultDirectory></DefultDirectory>
+  <Extention></Extention>
   <Font>Microsoft Sans Serif, 10</Font>
   <LoadDirectory>1</LoadDirectory>
-  <BackGroundImage>C:\Users\Shabeer\Desktop\Script manager\Output\\BackgroundDefault.jpg</BackGroundImage>
+  <BackGroundImage></BackGroundImage>
   <FontColor>-16777216</FontColor>
   <TextWindowFont>Microsoft Sans Serif, 12</TextWindowFont>
   <TextWindowFontcolor>-16777216</TextWindowFontcolor>
